@@ -1,0 +1,114 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Login</title>
+    <link href="//fonts.googleapis.com/css?family=Roboto|Varela+Round" rel="stylesheet">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+<body>
+    
+
+    
+    
+<div class="container">
+    
+    <div class="signin-form">
+        <form id="frmlogin" name="frmlogin" action="/LoginHandler.ashx" method="post">
+            <h2>Sign in</h2>
+            <p class="hint-text">Sign in with your social media account</p>
+            <div class="social-btn text-center">
+                <a id="fb-signin-button" href="#" class="btn btn-primary btn-lg" title="Facebook"><i class="fa fa-facebook"></i></a>
+                <a href="#" style="visibility: hidden" class="btn btn-info btn-lg" title="Twitter"><i class="fa fa-twitter"></i></a>
+                <a id="google-signin-button" href="#" class="btn btn-danger btn-lg" title="Google"><i class="fa fa-google"></i></a>
+            </div>
+            <div class="or-seperator"><b>&nbsp;</b></div>
+            <div class="form-group">
+                <input type="text" class="form-control input-lg" name="username" placeholder="Username" required="required">
+                
+            </div>
+            <div class="form-group">
+                <input type="password" class="form-control input-lg" name="password" placeholder="Password" required="required">
+            </div>  
+            <div class="form-group">
+                <button type="submit" class="btn btn-success btn-lg btn-block signup-btn">Sign in</button>
+            </div>
+            <div class="text-center small"><a href="#">Forgot Your password?</a></div>
+            <input type="hidden"  id="logintype" name="logintype" />
+            <input type="hidden" id="email" name="email" />
+            <input type="hidden" id="imageurl" name="imageurl" />
+            <input type="hidden" id="name" name="name" />
+            <input type="hidden" id="firstname" name="firstname" />
+            <input type="hidden" id="lastname" name="lastname" />
+            <input type="hidden" id="authtoken" name="authtoken" />
+
+        </form>
+        <div class="text-center small">Don't have an account? <a href="#">Sign up</a></div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-11">&nbsp;</div>
+        <div class="col-md-1"><button id="btnlogout" onclick="logoutClick()" class="btn btn-danger">Logout</button> </div>
+
+    </div>
+</div>
+
+
+    
+<!-- BEGIN Pre-requisites -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> 
+<script src="https://apis.google.com/js/platform.js?onload=googleInit" async defer></script>
+<script >
+    (function(d, s, id){
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {return;}
+        js = d.createElement(s); js.id = id;
+        js.src = "https://connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+    
+</script>
+
+   
+<!-- END Pre-requisites -->
+    
+<script src="js/config.js"></script>     
+<script src="js/login-client.js"></script> 
+<script src="js/google-client.js"></script> 
+<script src="js/fb-client.js"></script> 
+    
+<script>
+
+
+    
+
+    function logoutClick() {
+
+        GoogleClient.signout();
+        FacebookClient.signout();
+        LoginClient.dologout();
+    }
+</script>
+<script>
+    function googleInit() {
+
+        //Second parameter Element ID for click
+        GoogleClient.init('google-signin-button',Config.google,LoginClient.doGoogleLogin);
+
+    }
+</script>
+
+    
+<script>
+    FacebookClient.init("fb-signin-button", Config.facebook, LoginClient.doFacebookLogin);
+</script>
+
+
+</body>
+</html>
